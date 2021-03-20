@@ -1,0 +1,30 @@
+{
+  "name": "botram",
+  "version": "1.0.0",
+  "description": "test botram",
+  "main": "app.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "qrcode": "^1.4.4",
+    "whatsapp-web.js": "^1.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ouwteam/botram.git"
+  },
+  "keywords": [
+    "botram"
+  ],
+  "author": "ouwteam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ouwteam/botram/issues"
+  },
+  "homepage": "https://github.com/ouwteam/botram#readme"
+}
