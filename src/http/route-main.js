@@ -90,59 +90,6 @@ module.exports = class RouteMain {
         }));
     }
 
-    handleDevice(req, res) {
-        var state = null,
-            webVersion = null,
-            querySTR = req.query;
-
-        if (typeof querySTR.cl == 'undefined') {
-            res.setHeader("Content-Type", "Application/Json");
-            res.status(200).send({
-                info: false,
-                status_code: cfg.status_code.MISSING_REQUIRED_ARGS,
-                status: "CL is required"
-            });
-        }
-
-        var USER_ID = this.ConnectionMananger.GenerateID(querySTR.cl);
-        if (!this.ConnectionMananger.IsClientExists(USER_ID)) {
-            res.setHeader('Content-Type', 'Application/Json');
-            res.send({
-                info: false,
-                status_code: cfg.status_code.CLIENT_IS_NOT_EXISTS,
-                status: 'Client is not exists'
-            });
-            return;
-        }
-
-        if (this.ConnectionMananger.IsClientReady(USER_ID) == false) {
-            res.setHeader('Content-Type', 'Application/Json');
-            res.send({
-                info: false,
-                status_code: cfg.status_code.CLIENT_IS_NOT_READY,
-                status: 'Client is not ready'
-            });
-
-            return;
-        }
-
-        var mConnectionManager = this.ConnectionMananger;
-        mConnectionManager.GetClient(USER_ID).getState().then(function (result) {
-            state = result;
-            mConnectionManager.GetClient(USER_ID).getWWebVersion().then(function (result) {
-                webVersion = result;
-
-                res.setHeader('Content-Type', 'Application/Json');
-                res.send({
-                    info: true,
-                    state: state,
-                    webVersion: webVersion,
-                    device: mConnectionManager.GetClient(USER_ID).info
-                });
-            });
-        });
-    }
-
     async handleScanner(req, res) {
         var querySTR = req.query;
         if (typeof querySTR.cl == 'undefined') {
@@ -194,5 +141,21 @@ module.exports = class RouteMain {
                 status: "Device is already connected"
             });
         }
+    }
+
+    handleMain(req, res) {
+        res.setHeader('Content-Type', 'Application/Json');
+        res.send({
+            info: true,
+            status: 'server is up'
+        });
+    }
+
+    handleListUser(req, res) {
+        res.setHeader('Content-Type', 'Application/Json');
+        res.send({
+            info: true,
+            data: this.ConnectionMananger.GetClientReady()
+        });
     }
 }

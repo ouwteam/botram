@@ -38,6 +38,10 @@ module.exports = class ConnectionManager {
         return true;
     }
 
+    GetClientReady() {
+        return this.ClientReady;
+    }
+
     RemoveClient(UserID) {
         delete this.Clients[UserID];
         delete this.ClientReady[UserID];
